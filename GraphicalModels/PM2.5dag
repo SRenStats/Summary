@@ -1,0 +1,39 @@
+library(pcalg)
+library(igraph)
+data<-read.csv("C:/Users/Thinkpad/Desktop/160102.csv",header=TRUE)
+y<-as.matrix(data)
+
+x<-y[1:31,]
+
+n<-nrow (x)
+V<-colnames(data)
+pc.fit<-pc(suffStat=list(C=cor(x),n=n),indepTest = gaussCItest, alpha=0.01, labels = V, verbose = TRUE)
+aa<-show(pc.fit)
+adj<-showAmat(aa)
+ad<-matrix(0,nrow(adj),ncol(adj))
+for(i in 1:(nrow(adj)-1)){
+    for(j in (i+1):ncol(adj)){
+        if(adj[i,j]==1&adj[j,i]==2)
+        {ad[i,j]<-1
+        ad[j,i]<-0}
+        if(adj[j,i]==1&adj[i,j]==2)
+        {ad[j,i]<-1
+        ad[i,j]<-0}
+        if(adj[j,i]==2&adj[i,j]==2)
+        {ad[j,i]<-1
+        ad[i,j]<-1}
+        
+        
+    }} 
+g1<-graph.adjacency(ad,mode="directed")
+
+library(showtext)
+showtext.auto(enable = TRUE)
+font.add('kaishu','simkai.ttf')
+showtext.begin()
+pdf('111.pdf')
+E(g1)$color<-"black"
+V(g1)$color<-"green"
+plot(g1,layout=layout.fruchterman.reingold, edge.arrow.size=0.5,vertex.size=15,vertex.label=V,vertex.label.cex=0.7,vertex.label.family="kaishu")
+showtext.end()
+dev.off()

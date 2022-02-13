@@ -1,0 +1,55 @@
+library(igraph)
+data<-read.csv("C:/Users/Thinkpad/Desktop/sqz.csv",header=TRUE)#input the route of the data
+name<-names(data)#将data的列名字存下来，以便后面使用.
+data[,1]<-as.character(data[,1])#将data的第一列（学校）转化为字符型
+data<-as.matrix(data)
+data1<-data[,-1]#将第一列去掉
+data1<-as.matrix(data1)
+data2<-matrix(as.numeric(data1),nrow=nrow(data1),ncol=ncol(data1))#data2是数值型矩阵
+colnames(data2)<-name[-1]#给x的列命名
+g<-graph_from_adjacency_matrix(data2,weighted=TRUE,mode="undirected")
+
+
+data<-read.csv("C:/Users/Thinkpad/Desktop/sqz.csv",header=TRUE)#input the route of the data
+data<-as.matrix(data)
+data1<-matrix(as.numeric(data),nrow=nrow(data),ncol=ncol(data))
+g<-graph_from_adjacency_matrix(data1,weighted=TRUE,mode="undirected")
+
+
+degree_w(data1, measure=c("degree", "output", "alpha"), alpha=1)
+
+library(tnet)
+net <- cbind(
+i=c(1,1,2,2,2,2,3,3,4,5,5,6),
+j=c(2,3,1,3,4,5,1,2,2,2,6,5),
+w=c(4,2,4,4,1,2,2,4,1,2,1,1))
+
+ library(tnet)
+# Calculate degree centrality (note that alpha is included in the list of measures)
+a=degree_w(net, measure=c("degree", "output", "alpha"), alpha=0.5)
+write.csv(a,file="C:/Users/Thinkpad/Desktop/ss.csv")
+# Calculate closeness centrality
+closeness_w(net, alpha=0.5)
+ 
+# Calculate betweenness centrality
+betweenness_w(net, alpha=0.5)
+
+
+library(tnet)
+data<-read.csv("C:/Users/Thinkpad/Desktop/sqz1.csv",header=TRUE)#input the route of the data
+name1<-names(data)
+data<-as.matrix(data)
+data1<-data[,-1]#将第一列去掉
+data1<-as.matrix(data1)
+data2<-matrix(as.numeric(data1),nrow=nrow(data1),ncol=ncol(data1))#data2是数值型矩阵
+a1=degree_w(data2, measure=c("degree", "output", "alpha"), alpha=0.2)
+a2=degree_w(data2, measure=c("alpha"), alpha=0.4)
+a3=degree_w(data2, measure=c("alpha"), alpha=0.6)
+a4=degree_w(data2, measure=c("alpha"), alpha=0.8)
+a5=degree_w(data2, measure=c("alpha"), alpha=1.2)
+a6=degree_w(data2, measure=c("alpha"), alpha=1.4)
+a7=degree_w(data2, measure=c("alpha"), alpha=1.6)
+a8=degree_w(data2, measure=c("alpha"), alpha=1.8)
+a9=degree_w(data2, measure=c("alpha"), alpha=2.0)
+write.csv(cbind(name1[-1],a1,a2,a3,a4,a5,a6,a7,a8,a9),file="C:/Users/Thinkpad/Desktop/bdegree.csv")
+

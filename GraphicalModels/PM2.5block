@@ -1,0 +1,55 @@
+library(shock)
+library(igraph)
+adj<-function(W){for(l in 1:(nrow(W)-1)){
+		         for(r in (l+1):ncol(W)){
+                 if(W[l,r]!=0)
+				 W[l,r]<-1
+				 W[r,l]<-W[l,r]}}
+     for(i in 1:nrow(W)){W[i,i]<-0}
+				 
+				 return(W)}	
+
+
+data<-read.csv("C:/Users/Thinkpad/Desktop/2014/all.csv",header=TRUE)
+y<-as.matrix(data)
+x<-y[1:31,]
+x<-as.matrix(x)
+resShock <- shockSelect(x)
+SHlabels  <- resShock$SHDJlabels
+SHadjaMat<- diag(31)
+for(itt in 1:length(unique(SHlabels))){  
+  stepdata <- as.matrix(x[,SHlabels==itt],nrow=dim(x)[1])
+  if(dim(stepdata)[2]>1){
+    resNet <- networkInferenceGlassoBIC(stepdata)
+    SHadjaMat[SHlabels==itt,SHlabels==itt] <- resNet$A
+  }
+}
+G<-adj(SHadjaMat)
+colnames(G)<-colnames(data)	
+g0<-graph.adjacency(G,mode="undirected")
+
+
+library(showtext)
+showtext.auto(enable = TRUE)
+font.add('kaishu','simkai.ttf')
+showtext.begin()
+pdf('2201401.pdf')
+E(g0)$color<-"black"
+plot(g0, layout=layout.fruchterman.reingold, vertex.size=15,vertex.label=V(g0)$name, vertex.label.cex=0.7,vertex.label.family="kaishu",
+vertex.color= terrain.colors(length(levels(as.factor(SHlabels))))[SHlabels])
+showtext.end()
+dev.off()
+
+
+library(showtext)
+ showtext.auto(enable = TRUE)
+ font.add('kaishu','simkai.ttf')
+ showtext.begin()
+ pdf('3.pdf')
+E(g0)$color<-"black"
+plot(g0, layout=layout.fruchterman.reingold, vertex.size=15,vertex.label=V(g0)$name, vertex.label.cex=0.7,vertex.label.family="kaishu",
+vertex.color= rainbow(length(levels(as.factor(SHlabels))), 0.5, 1, alpha=1)[SHlabels])
+ showtext.end()
+ dev.off()
+
+

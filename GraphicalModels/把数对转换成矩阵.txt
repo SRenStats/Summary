@@ -1,0 +1,19 @@
+data<-read.csv("C:/Users/Thinkpad/Desktop/sweight1.csv",header=FALSE)#input the route of the data
+data[,1]<-as.character(data[,1])
+data[,2]<-as.character(data[,2])#将data的第一列转化为字符型
+a<-levels(as.factor(c(data[,1],data[,2])))
+adjm<-matrix(0,length(a),length(a))
+rownames(adjm)<-a
+colnames(adjm)<-a
+for(i in 1:length(a)){
+   b<-which(data[,1]==a[i])
+  
+     for(j in 1:length(b)){
+         cc<-which(a==(data[b[j],2]))
+         adjm[i,cc]<-data[b[j],3]
+		 adjm[cc,i]<-data[b[j],3]
+     }}
+write.csv(adjm,file="C:/Users/Thinkpad/Desktop/sqz1.csv")
+
+
+

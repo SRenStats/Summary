@@ -1,0 +1,32 @@
+library(shock)
+adj<-function(W){for(l in 1:(nrow(W)-1)){
+		         for(r in (l+1):ncol(W)){
+                 if(W[l,r]!=0)
+				 W[l,r]<-1
+				 W[r,l]<-W[l,r]}}
+     for(i in 1:nrow(W)){W[i,i]<-0}
+				 
+				 return(W)}	
+
+
+
+ad<-matrix(0,31,31)
+data<-read.csv("C:/Users/Thinkpad/Desktop/2016/all.csv",header=TRUE)
+y<-as.matrix(data)
+for (i in 1:335){
+x<-y[i:(i+30),]
+x<-as.matrix(x)
+resShock <- shockSelect(x)
+SHlabels  <- resShock$SHDJlabels
+SHadjaMat<- diag(31)
+for(itt in 1:length(unique(SHlabels))){  
+  stepdata <- as.matrix(x[,SHlabels==itt],nrow=dim(x)[1])
+  if(dim(stepdata)[2]>1){
+    resNet <- networkInferenceGlassoBIC(stepdata)
+    SHadjaMat[SHlabels==itt,SHlabels==itt] <- resNet$A
+  }
+}
+G<-adj(SHadjaMat)
+ad<-ad+G}
+write.csv(ad,file="C:/Users/Thinkpad/Desktop/14block335.csv")
+

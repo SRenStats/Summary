@@ -1,0 +1,194 @@
+plot(data[,1],data[,2],col="red",ylim=c(45,80),xlab="",ylab="",lty=1,type="o",lwd=4,cex=1)
+mtext("Time", side = 1, line = 2.4,cex=1.2)
+mtext("PM2.5", side = 2, line = 2.4,cex=1.2)
+points(data[,1],data[,3],col="orange",ylim=c(45,80),xlab="",ylab="",lty=1,type="o",lwd=4,cex=1)
+legend(0.17,0.15,legend=c(expression(paste(beta,"=0.5")),expression(paste(beta,"=0.2")),expression(paste(beta,"=0.1"))),
+col=c("blue","green","red"),lty=c(1,2,3),lwd=c(4,4,4),cex=0.9,text.width=0.025)
+
+plot(xx[1:5],hyear[,1],ylim=c(min(hyear),max(hyear)),col="3",xlab="",ylab="",lty=1,type="o",lwd=2,cex=1)
+for(i in 2:3){
+    points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="3",xlab="",ylab="",lty=1,type="o",lwd=2,cex=1)}
+for(i in 4:7){
+    points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="4",xlab="",ylab="",lty=1,type="o",lwd=2,cex=1)}
+for(i in 8:9){
+    points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="5",xlab="",ylab="",lty=1,type="o",lwd=2,cex=1)}
+for(i in 43:46){
+    points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="6",xlab="",ylab="",lty=1,type="o",lwd=2,cex=1)}
+for(i in 47:50){
+    points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="7",xlab="",ylab="",lty=1,type="o",lwd=2,cex=1)}
+for(i in 10:17){
+points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="8",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)}
+for(i in 18:21){
+points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="9",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)}
+for(i in 22:25){
+points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="10",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)}
+for(i in 26:38){
+points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="11",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)}
+for(i in 39:42){
+points(xx[1:5],hyear[,i],ylim=c(min(hyear),max(hyear)),col="12",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)}
+#legend("topleft",c("安康", "汉中", "商洛", "延安", "榆林","宝鸡", "铜川", "渭南", "西安", "咸阳"), col = c(3, 4, 5,6,7,8,9,10,11,12),
+       text.col = "green4", lty = c(2,2,2,2,2,2,2,2,2,2),ncol=2, merge = TRUE, bg = "gray90")
+for(i in 1:6){c[2,i]<-mean(data[t,i])}
+for(i in 1:6){c[3,i]<-mean(data[t+1,i])}
+for(i in 1:6){c[4,i]<-mean(data[t+2,i])}
+for(i in 1:6){c[5,i]<-mean(data[t+3,i])}
+for(i in 1:6){c[6,i]<-mean(data[t+4,i])}
+for(i in 1:6){c[7,i]<-mean(data[t+5,i])}
+for(i in 1:6){c[8,i]<-mean(data[t+6,i])}
+for(i in 1:6){c[9,i]<-mean(data[t+7,i])}
+for(i in 1:6){c[10,i]<-mean(data[t+8,i])}
+for(i in 1:6){c[11,i]<-mean(data[t+9,i])}
+for(i in 1:6){c[12,i]<-mean(data[t+10,i])}
+for(i in 1:6){c[13,i]<-mean(data[t+11,i])}
+for(i in 1:6){c[14,i]<-mean(data[t+12,i])}
+for(i in 1:6){c[15,i]<-mean(data[t+13,i])}
+for(i in 1:6){c[16,i]<-mean(data[t+14,i])}
+for(i in 1:6){c[17,i]<-mean(data[t+15,i])}
+for(i in 1:6){c[18,i]<-mean(data[t+16,i])}
+for(i in 1:6){c[19,i]<-mean(data[t+17,i])}
+for(i in 1:6){c[20,i]<-mean(data[t+18,i])}
+for(i in 1:6){c[21,i]<-mean(data[t+19,i])}
+for(i in 1:6){c[22,i]<-mean(data[t+20,i])}
+for(i in 1:6){c[23,i]<-mean(data[t+21,i])}
+for(i in 1:6){c[24,i]<-mean(data[t+22,i])}
+for(i in 1:6){c[24,i]<-mean(data[t+23,i])}
+
+
+
+###################################
+ddata<-read.csv("C:/Users/Thinkpad/Desktop/pm2.5.csv",header=TRUE)
+data<-as.matrix(ddata)
+xx<-seq(1,24,1)
+#全省2015年起半年均值
+a<-matrix(0,10,10)
+a[1,]<-colnames(ddata)
+for(i in 1:10){a[2,i]<-mean(data[((234*24+1):(416*24)),i])}
+for(i in 1:10){a[3,i]<-mean(data[((416*24+1):(598*24)),i])}
+for(i in 1:10){a[4,i]<-mean(data[((598*24+1):(781*24)),i])}
+for(i in 1:10){a[5,i]<-mean(data[((781*24+1):(964*24)),i])}
+for(i in 1:10){a[6,i]<-mean(data[((964*24+1):26808),i])}
+hyear<-a[(2:6),]
+hyear<-matrix(as.numeric(hyear),nrow=nrow(hyear),ncol=ncol(hyear))
+
+#画图
+library(showtext)
+showtext.auto(enable = TRUE)
+font.add('kaishu','simkai.ttf')
+showtext.begin()
+pdf('hyearco.pdf')
+plot(xx[1:5],hyear[,1],ylim=c(min(hyear),max(hyear)),col="1",xlab="time",ylab="pm2.5",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:5],hyear[,2],ylim=c(min(hyear),max(hyear)),col="2",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:5],hyear[,3],ylim=c(min(hyear),max(hyear)),col="3",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:5],hyear[,4],ylim=c(min(hyear),max(hyear)),col="4",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:5],hyear[,5],ylim=c(min(hyear),max(hyear)),col="5",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:5],hyear[,6],ylim=c(min(hyear),max(hyear)),col="6",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:5],hyear[,7],ylim=c(min(hyear),max(hyear)),col="7",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:5],hyear[,8],ylim=c(min(hyear),max(hyear)),col="8",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:5],hyear[,9],ylim=c(min(hyear),max(hyear)),col="orange",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:5],hyear[,10],ylim=c(min(hyear),max(hyear)),col="orchid1",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+legend("topleft",c( "西安","咸阳","铜川","延安","渭南","宝鸡","榆林","汉中","安康","商洛"), lty = c(1,1,1,1,1,1,1,1,1,1),
+col = c(1,2,3,4,5,6,7,8,"orange","orchid1"),ncol=2, merge = TRUE, bg = "gray90")
+showtext.end()
+dev.off()
+#关中所有数据季度均值
+b<-matrix(0,15,10)
+b[1,]<-colnames(ddata)
+for(i in 1:6){b[2,i]<-mean(data[(1:(111*24)),i])}
+for(i in 1:6){b[3,i]<-mean(data[((111*24+1):(202*24)),i])}
+for(i in 1:6){b[4,i]<-mean(data[((202*24+1):(292*24)),i])}
+for(i in 1:6){b[5,i]<-mean(data[((292*24+1):(384*24)),i])}
+for(i in 1:6){b[6,i]<-mean(data[((384*24+1):(476*24)),i])}
+for(i in 1:6){b[7,i]<-mean(data[((476*24+1):(567*24)),i])}
+for(i in 1:6){b[8,i]<-mean(data[((567*24+1):(658*24)),i])}
+for(i in 1:6){b[9,i]<-mean(data[((658*24+1):(750*24)),i])}
+for(i in 1:6){b[10,i]<-mean(data[((750*24+1):(842*24)),i])}
+for(i in 1:6){b[11,i]<-mean(data[((842*24+1):(933*24)),i])}
+for(i in 1:6){b[12,i]<-mean(data[((933*24+1):(1023*24)),i])}
+for(i in 1:6){b[13,i]<-mean(data[((1023*24+1):26808),i])}
+for(i in 7:10){b[4,i]<-mean(data[(5618:(292*24)),i])}
+for(i in 7:10){b[5,i]<-mean(data[((292*24+1):(384*24)),i])}
+for(i in 7:10){b[6,i]<-mean(data[((384*24+1):(476*24)),i])}
+for(i in 7:10){b[7,i]<-mean(data[((476*24+1):(567*24)),i])}
+for(i in 7:10){b[8,i]<-mean(data[((567*24+1):(658*24)),i])}
+for(i in 7:10){b[9,i]<-mean(data[((658*24+1):(750*24)),i])}
+for(i in 7:10){b[10,i]<-mean(data[((750*24+1):(842*24)),i])}
+for(i in 7:10){b[11,i]<-mean(data[((842*24+1):(933*24)),i])}
+for(i in 7:10){b[12,i]<-mean(data[((933*24+1):(1023*24)),i])}
+for(i in 7:10){b[13,i]<-mean(data[((1023*24+1):26808),i])}
+qyear<-b[(2:13),]
+qyear<-matrix(as.numeric(qyear),nrow=nrow(qyear),ncol=ncol(qyear))
+#画图
+library(showtext)
+showtext.auto(enable = TRUE)
+font.add('kaishu','simkai.ttf')
+showtext.begin()
+pdf('qyear2.5.pdf')
+
+plot(xx[1:12],qyear[,1],ylim=c(min(qyear),max(qyear)),col="1",xlab="time",ylab="pm2.5",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:12],qyear[,2],ylim=c(min(qyear),max(qyear)),col="2",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:12],qyear[,3],ylim=c(min(qyear),max(qyear)),col="3",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:12],qyear[,4],ylim=c(min(qyear),max(qyear)),col="4",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:12],qyear[,5],ylim=c(min(qyear),max(qyear)),col="5",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:12],qyear[,6],ylim=c(min(qyear),max(qyear)),col="6",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:12],qyear[,7],ylim=c(min(qyear),max(qyear)),col="7",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:12],qyear[,8],ylim=c(min(qyear),max(qyear)),col="8",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:12],qyear[,9],ylim=c(min(qyear),max(qyear)),col="orange",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:12],qyear[,10],ylim=c(min(qyear),max(qyear)),col="orchid1",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+legend("topleft",c( "西安","咸阳","铜川","延安","渭南","宝鸡","榆林","汉中","安康","商洛"), lty = c(1,1,1,1,1,1,1,1,1,1),
+col = c(1,2,3,4,5,6,7,8,"orange","orchid1"),ncol=2, merge = TRUE, bg = "gray90")
+showtext.end()
+dev.off()
+
+ddata<-read.csv("C:/Users/Thinkpad/Desktop/pm2.5.csv",header=TRUE)
+data<-as.matrix(ddata)
+xx<-seq(0,25,1)
+d<-matrix(0,25,10)
+d[1,]<-colnames(ddata)
+
+t<-seq(1,26808,24)
+for(j in 2:25){
+for(i in 1:6){d[j,i]<-mean(data[t+j-2,i])}}
+
+tt<-seq(5618,26808,24)
+for(j in 2:25){
+for(i in 7:10){d[j,i]<-mean(data[tt+j-3,i])}}
+
+hour<-d[(2:25),]
+hour<-matrix(as.numeric(hour),nrow=nrow(hour),ncol=ncol(hour))
+#画图
+library(showtext)
+showtext.auto(enable = TRUE)
+font.add('kaishu','simkai.ttf')
+showtext.begin()
+pdf('hour2.5.pdf')
+
+par(mai=c(1,1,1.5,0.5))
+plot(xx[1:24],hour[,1],ylim=c(min(hour),max(hour)),col="1",xlab="time",ylab="pm2.5",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:24],hour[,2],ylim=c(min(hour),max(hour)),col="2",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:24],hour[,3],ylim=c(min(hour),max(hour)),col="3",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:24],hour[,4],ylim=c(min(hour),max(hour)),col="4",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:24],hour[,5],ylim=c(min(hour),max(hour)),col="5",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:24],hour[,6],ylim=c(min(hour),max(hour)),col="6",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:24],hour[,7],ylim=c(min(hour),max(hour)),col="7",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:24],hour[,8],ylim=c(min(hour),max(hour)),col="8",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:24],hour[,9],ylim=c(min(hour),max(hour)),col="orange",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:24],hour[,10],ylim=c(min(hour),max(hour)),col="orchid1",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+xy<-par("usr")
+legend(x=xy[2]+xinch(1.5),y=xy[3]+yinch(5),c( "西安","咸阳","铜川","延安","渭南","宝鸡","榆林","汉中","安康","商洛"), xpd=T,lty = c(1,1,1,1,1,1,1,1,1,1),
+       col = c(1,2,3,4,5,6,7,8,"orange","orchid1"),xjust=1.5,yjust=0.5,ncol=5, merge = TRUE, bg = "gray90")
+showtext.end()
+dev.off()
+
+
+
+library(showtext)
+showtext.auto(enable = TRUE)
+font.add('kaishu','simkai.ttf')
+showtext.begin()
+pdf('beijing.pdf')
+plot(xx[1:44],data[,2],ylim=c(min(data[,1]),max(data[,2])),col="1",xlab="time",ylab="pm2.5",lty=1,type="o",lwd=1.5,cex=1)
+points(xx[1:44],data[,1],ylim=c(min(data[,1]),max(data[,2])),col="2",xlab="time",ylab="pm2.5",lty=1,type="o",lwd=1.5,cex=1)
+legend("topleft",c( "pm10","pm2.5"), xpd=T,lty = c(1,1),
+       col = c(1,2),xjust=1.5,yjust=0.5,ncol=5, merge = TRUE, bg = "gray90")
+showtext.end()
+dev.off()

@@ -1,0 +1,46 @@
+#分季节小时均值
+data<-read.csv("C:/Users/Thinkpad/Desktop/so2.csv",header=TRUE)
+data<-as.matrix(data)
+x1<-data[5617:nrow(data),]
+x1[1,7:10]<-x1[2,7:10]
+a<-c(1:(89*24),(364*24+1):(455*24),(730*24+1):(820*24))
+b<-c((89*24+1):(180*24),(455*24+1):(546*24),(820*24+1):(911*24))
+c<-c((180*24+1):(272*24),(546*24+1):(638*24))
+d<-c((272*24+1):(364*24),(638*24+1):(730*24))
+
+#xx<-seq(0,47,1)
+xx<-seq(0,23,1)
+
+x<-x1[a,]#abcd代表四季
+f<-seq(1,nrow(x),24)
+jz<-matrix(0,24,10)
+for(i in 1:24){for (j in 1:10)
+{jz[i,j]<-mean(x[f+i-1,j])}}
+
+#hour<-rbind(jz,jz)
+hour<-jz
+hour<-matrix(as.numeric(hour),nrow=nrow(hour),ncol=ncol(hour))
+#画图
+library(showtext)
+showtext.auto(enable = TRUE)
+font.add('kaishu','simkai.ttf')
+showtext.begin()
+pdf('hourso2a.pdf')
+
+par(mai=c(1,1,1.5,0.5))
+plot(xx,hour[,1],ylim=c(min(hour),max(hour)),col="1",xlab="time",ylab="so2a",lty=1,type="o",lwd=1.5,cex=1)
+points(xx,hour[,2],ylim=c(min(hour),max(hour)),col="2",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx,hour[,3],ylim=c(min(hour),max(hour)),col="3",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx,hour[,4],ylim=c(min(hour),max(hour)),col="4",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx,hour[,5],ylim=c(min(hour),max(hour)),col="5",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx,hour[,6],ylim=c(min(hour),max(hour)),col="6",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx,hour[,7],ylim=c(min(hour),max(hour)),col="7",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx,hour[,8],ylim=c(min(hour),max(hour)),col="8",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx,hour[,9],ylim=c(min(hour),max(hour)),col="orange",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+points(xx,hour[,10],ylim=c(min(hour),max(hour)),col="orchid1",xlab="",ylab="",lty=1,type="o",lwd=1.5,cex=1)
+grid(nx=51,ny=NA,lwd=1.5)
+xy<-par("usr")
+legend(x=xy[2]+xinch(1.5),y=xy[3]+yinch(5),c( "西安","咸阳","铜川","延安","渭南","宝鸡","榆林","汉中","安康","商洛"), xpd=T,lty = c(1,1,1,1,1,1,1,1,1,1),
+       col = c(1,2,3,4,5,6,7,8,"orange","orchid1"),xjust=1.5,yjust=0.5,ncol=5, merge = TRUE, bg = "gray90")
+showtext.end()
+dev.off()

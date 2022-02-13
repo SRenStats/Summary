@@ -1,0 +1,133 @@
+library(pcalg)
+library(igraph)
+data<-read.csv("C:/Users/Thinkpad/Desktop/2016/API(2月).csv",header=TRUE)
+x<-as.matrix(data)
+n<-nrow (x)
+V<-colnames(data)
+pc.fit<-pc(suffStat=list(C=cor(x),n=n),indepTest = gaussCItest, alpha=0.05, labels = V, verbose = TRUE)
+aa<-show(pc.fit)
+adj<-showAmat(aa)
+ad<-matrix(0,nrow(adj),ncol(adj))
+for(i in 1:(nrow(adj)-1)){
+   for(j in (i+1):ncol(adj)){
+       if(adj[i,j]==1&adj[j,i]==2)
+	   {ad[i,j]<-1
+	   ad[j,i]<-0}
+	   if(adj[j,i]==1&adj[i,j]==2)
+	   {ad[j,i]<-1
+	   ad[i,j]<-0}
+	   if(adj[j,i]==2&adj[i,j]==2)
+	   {ad[j,i]<-1
+	   ad[i,j]<-1}
+	   
+	  
+	   }} 
+
+g1<-graph.adjacency(ad,mode="directed")
+vertex.lable<-colnames(data)
+eb<-cluster_edge_betweenness(g1)
+#plot(eb,g1,mark.groups = NULL,vertex.size=15,vertex.label=vertex.lable,edge.color ='black',main=paste(length(eb),'communities detected'))
+
+library(showtext)
+ showtext.auto(enable = TRUE)
+ font.add('kaishu','simkai.ttf')
+ showtext.begin()
+ pdf('b201602.pdf')
+ SHlabels<-membership(eb)
+E(g1)$color<-"black"
+V(g1)$name<-colnames(data)
+plot(g1,mark.groups = NULL, edge.arrow.size=0.5,vertex.size=15,vertex.label=V(g1)$name, vertex.label.cex=0.7,vertex.label.family="kaishu",vertex.color= rainbow(length(levels(as.factor(SHlabels))), 0.5, 1, alpha=1)[SHlabels])
+
+ showtext.end()
+ dev.off()
+
+library (igraph)
+data<-read.csv("C:/Users/Thinkpad/Desktop/14fen.csv",header=TRUE)
+V<-colnames(data)
+x<-as.matrix(data[,-1])
+y1<-x[1:14,1:14]
+y2<-x[15:31,15:31]
+g1<-graph.adjacency(y1,mode="undirected")
+g2<-graph.adjacency(y2,mode="undirected")
+
+lv1<-cluster_louvain(g1)
+lv2<-cluster_louvain(g2)
+
+eb1<-cluster_edge_betweenness(g1)
+eb2<-cluster_edge_betweenness(g2)
+
+wc1 <- walktrap.community(g1)
+wc2 <- walktrap.community(g2)
+
+lc1 <- label.propagation.community(g1)
+lc2 <- label.propagation.community(g2)
+
+lec1<-leading.eigenvector.community(g1)
+lec2<-leading.eigenvector.community(g2)
+
+
+gc1<-cluster_optimal(g1)
+gc2<-cluster_optimal(g2)
+
+plot(gc1,g1,mark.groups = NULL,vertex.size=15,vertex.label=V(g1)$name,edge.color ='gray',main=paste(length(gc1),'communities detected'))
+plot(gc2,g2,mark.groups = NULL,vertex.size=15,vertex.label=V(g2)$name,edge.color ='gray',main=paste(length(gc2),'communities detected'))
+
+
+y2<-x[27:31,27:31]
+g2<-graph.adjacency(y2,mode="undirected")
+gc2<-cluster_optimal(g2)
+plot(gc2,g2,mark.groups = NULL,vertex.size=15,vertex.label=V(g2)$name,edge.color ='gray',main=paste(length(gc2),'communities detected'))
+ 
+library (igraph)
+data<-read.csv("C:/Users/Thinkpad/Desktop/16fen.csv",header=TRUE)
+x<-as.matrix(data[,-1])
+y1<-x[1:14,1:14]
+y2<-x[15:31,15:31]
+g1<-graph.adjacency(y1,mode="undirected")
+g2<-graph.adjacency(y2,mode="undirected")
+gc1<-cluster_optimal(g1)
+gc2<-cluster_optimal(g2)
+
+
+library(showtext)
+ showtext.auto(enable = TRUE)
+ font.add('kaishu','simkai.ttf')
+ showtext.begin()
+ pdf('16a.pdf')
+ SHlabels<-membership(gc1)
+E(g1)$color<-"gray"
+plot(g1,mark.groups = NULL, edge.arrow.size=0.5,vertex.size=15,vertex.label=V(g1)$name, vertex.label.cex=0.7,vertex.label.family="kaishu",vertex.color= rainbow(length(levels(as.factor(SHlabels))), 0.5, 1, alpha=1)[SHlabels])
+ showtext.end()
+ dev.off()
+ 
+library(showtext)
+ showtext.auto(enable = TRUE)
+ font.add('kaishu','simkai.ttf')
+ showtext.begin()
+ pdf('16b.pdf')
+ SHlabels<-membership(gc2)
+E(g2)$color<-"gray"
+plot(g2,mark.groups = NULL, edge.arrow.size=0.5,vertex.size=15,vertex.label=V(g2)$name, vertex.label.cex=0.7,vertex.label.family="kaishu",vertex.color= rainbow(length(levels(as.factor(SHlabels))), 0.5, 1, alpha=1)[SHlabels])
+ showtext.end()
+ dev.off()
+ 
+  
+ library(showtext)
+ showtext.auto(enable = TRUE)
+ font.add('kaishu','simkai.ttf')
+ showtext.begin()
+ pdf('16b.pdf')
+ plot(gc1,g1,mark.groups = NULL,vertex.size=15,vertex.label=V(g1)$name,edge.color ='gray',main=paste(length(gc1),'communities detected'))
+showtext.end()
+ dev.off()
+ 
+ library(showtext)
+ showtext.auto(enable = TRUE)
+ font.add('kaishu','simkai.ttf')
+ showtext.begin()
+ pdf('图的名字.pdf')
+E(g0)$color<-"black"
+plot(g0, layout=layout.fruchterman.reingold, vertex.size=15,vertex.label=V(g0)$name, vertex.label.cex=0.7,vertex.label.family="kaishu",
+vertex.color= rainbow(length(levels(as.factor(SHlabels))), 0.5, 1, alpha=1)[SHlabels])
+ showtext.end()
+ dev.off()

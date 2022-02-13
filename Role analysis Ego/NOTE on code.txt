@@ -1,0 +1,4 @@
+1. mixtures_of_ergm3 is the code when try to change the ego-network to sub-network that formed by the nodes in the same group
+2. lawyers_run2 and start2 are code that changed the ego-network to sender-ego-network.
+3. group_sim is the code where ego-net is changed into nodes from same group
+4. 2020/01/13 Change  the code of ego-networks, sim_run20200113 is the code that run simulation of ego-networks with fixed label of Henry(2019)

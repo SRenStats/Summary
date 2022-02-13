@@ -1,0 +1,58 @@
+library(xml2)
+library(rvest)
+
+
+pm1<-matrix(0,nrow=1,ncol=2)
+url1="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-01"
+url2="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-02"
+url3="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-03"
+url4="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-04"
+url5="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-05"
+url6="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-06"
+url7="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-07"
+url8="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-08"
+url9="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-09"
+url10="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-10"
+url11="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-11"
+url12="https://www.aqistudy.cn/historydata/daydata.php?city=%E5%BB%B6%E5%AE%89&month=2015-12"
+list <-list(url1,url2,url3,url4,url5,url6,url7,url8,url9,url10,url11,url12)
+for(url in list){
+    web<-read_html(url)
+    data_list<-web%>%html_nodes("table.table.table-condensed.table-bordered.table-striped.table-hover.table-responsive")%>%html_text()
+    d<-unlist(strsplit(data_list,split = "\\s+"))
+    n<-((length(d)/11)-1)
+    pm<-matrix(0,nrow=n,ncol=2)
+	
+    for(i in 1:n){
+    pm[i,1]<-d[11*i+1]
+    pm[i,2]<-d[11*i+5]
+	}
+	pm1<-rbind(pm1,pm)
+}
+write.csv(pm1,file="C:/Users/Thinkpad/Desktop/yanan15.csv")
+ 
+ 
+library(xml2)
+library(rvest)
+pm1<-matrix(0,nrow=1,ncol=4)
+url1="https://www.aqistudy.cn/historydata/daydata.php?city=%E8%A5%BF%E5%AE%89&month=201611"
+url2="https://www.aqistudy.cn/historydata/daydata.php?city=%E8%A5%BF%E5%AE%89&month=201612"
+url3="https://www.aqistudy.cn/historydata/daydata.php?city=%E8%A5%BF%E5%AE%89&month=201701"
+url4="https://www.aqistudy.cn/historydata/daydata.php?city=%E8%A5%BF%E5%AE%89&month=201702"
+list <-list(url1,url2,url3,url4)
+for(url in list){
+    web<-read_html(url1)
+    data_list<-web%>%html_nodes("table.table.table-condensed.table-bordered.table-striped.table-hover.table-responsive")%>%html_text()
+    d<-unlist(strsplit(data_list,split = "\\s+"))
+    n<-(length(d)/10)
+    pm<-matrix(0,nrow=n,ncol=4)
+	
+    for(i in 1:n){
+    pm[i,1]<-d[10*i-9]
+    pm[i,2]<-d[10*i-8]
+	pm[i,3]<-d[10*i-7]
+    pm[i,4]<-d[10*i-6]
+	}
+	pm1<-pm
+}
+write.csv(pm1,file="C:/Users/Thinkpad/Desktop/xian4.csv")
